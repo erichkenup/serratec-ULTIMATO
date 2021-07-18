@@ -7,14 +7,13 @@ import rotas from "../../routes/Produto/routes"
 
 const {wight, height} = Dimensions.get("screen")
 
-export default ModalizeAdicionar = ({ modalizeRef }) => {
+export default ModalizeAdicionar = ({ modalizeRef,atualizarHome }) => {
 
     const [nome, setNome] = useState();
     const [descricao, setDescricao] = useState();
     const [preco,setPreco] = useState();
     const [quantidade,setQuantidade] = useState();
     const [linkImagem,setLinkImagem] = useState();
-
 
     async function adicionar(){
         console.log(nome)
@@ -27,7 +26,9 @@ export default ModalizeAdicionar = ({ modalizeRef }) => {
             
     }
       await  rotas.cadastrar(produto)
+      atualizarHome()
       modalizeRef.current?.close();
+
     }
 
   return (

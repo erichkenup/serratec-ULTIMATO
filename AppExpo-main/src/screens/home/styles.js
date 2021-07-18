@@ -9,7 +9,7 @@ export const Container = styled.ScrollView`
     width:100%;
     `;
 
-export const ContainerBanner = styled.View`
+export const ContainerBanner = styled.TouchableOpacity`
     padding-right: 20px;
     padding-left: 14px;
     width: 45%;
@@ -49,14 +49,13 @@ export const Card = styled.View`
     background: #c3b087;
     border-radius: 8px;
     margin-top: 10px;
-    margin-left: 10px;
     margin-right: 10px;
     padding: 2px;
     width: 105%;
     height: 250px;
 `;
 
-export const CardHeader = styled.TouchableOpacity`
+export const CardHeader = styled.View`
     flex-direction: row;
     align-items: center;
 `;

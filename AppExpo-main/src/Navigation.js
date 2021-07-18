@@ -8,6 +8,8 @@ import Home from './screens/home/index'
 import Login from './screens/login/index'
 import Cadastro from './screens/cadastro/index'
 import Adicionar from './screens/adicionar/index'
+import Details from './screens/details/index'
+// import HeaderTopo from "./components/header/index"
 
 
 const Stack = createStackNavigator();
@@ -25,7 +27,8 @@ export default function App() {
         <Stack.Screen name="Home" component={Home}/>       
         <Stack.Screen name="Cadastro" component={Cadastro}/>
         <Stack.Screen name="Adicionar" component={Adicionar}/>
-        
+        <Stack.Screen name="Details" component={Details}/>
+        {/* <Stack.Screen name="HeaderTopo" component={HeaderTopo}/> */}
        
       </Stack.Navigator>
     </NavigationContainer>

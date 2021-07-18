@@ -8,26 +8,25 @@ import { Formulario } from './styles';
 
 const {wight, height} = Dimensions.get("screen")
 
-export default ModalizeDefault = ({ modalizeRef,jojo }) => {
+export default ModalizeDefault = ({ modalizeRef,jojo, atualizarHome }) => {
 
     const [nome, setNome] = useState();
     const [descricao, setDescricao] = useState();
     const [preco,setPreco] = useState();
     const [quantidade,setQuantidade] = useState();
-    const [linkImagem,setLinkImagem] = useState();
-
+    const [linkImagem,setLinkImagem] = useState();   
 
     async function atualizar(){
-        
-        const produto ={
+        const produto ={ 
             nome: nome,
             descricao: descricao,
             preco: preco,
             quantidade: quantidade,
             linkImagem: linkImagem,            
     }
+    console.log(produto)
       await  rotas.atualizar(jojo.id,produto)
-
+      atualizarHome()
       modalizeRef.current?.close();
     }
   
@@ -60,35 +59,35 @@ export default ModalizeDefault = ({ modalizeRef,jojo }) => {
             <Formulario
             defaultValue={jojo.nome}
             placeholder="Nome do item"
-            onChangeText={(valor) => setNome(valor)}            
+            onChangeText={setNome}            
             
-            />       
-            
+            />             
 
             <Formulario
             defaultValue={jojo.descricao}
-            placeholder="text2"  
+            placeholder="Descrição"  
             onChangeText={(valor) => setDescricao(valor)}          
             
             />     
 
             <Formulario
-            defaultValue={pre}
-            placeholder="text3"    
-            onChangeText={(valor) => setPreco(valor)}        
+            // defaultValue={pre}
+            value={preco}
+            placeholder="Preço"    
+            onChangeText={setPreco}        
             
             />  
 
             <Formulario
             defaultValue={qtde}
-            placeholder="text3"      
+            placeholder="Quantidade"      
             onChangeText={(valor) => setQuantidade(valor)}      
             
             />  
 
             <Formulario
             defaultValue={jojo.linkImagem}
-            placeholder="text3"
+            placeholder="Link Imagem"
             onChangeText={(valor) => setLinkImagem(valor)}
                         
             

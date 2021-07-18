@@ -6,7 +6,7 @@ import ModalizeAdicionar from '../ModalizeAdicionar';
 
 
 
-const MyComponent = () => {
+const MyComponent = ({atualizarHome}) => {
 
   const modalizeRef = useRef(null)
 
@@ -18,7 +18,7 @@ const MyComponent = () => {
     icon="plus"
     onPress={() =>  modalizeRef.current?.open() 
      } />
-  <ModalizeAdicionar modalizeRef={modalizeRef}/>
+  <ModalizeAdicionar modalizeRef={modalizeRef} atualizarHome={atualizarHome}/>
   </>
   )
      

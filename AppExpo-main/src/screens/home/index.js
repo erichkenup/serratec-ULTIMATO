@@ -1,13 +1,9 @@
 import React, { useRef, useState, useEffect} from 'react';
-import { TouchableOpacity,FlatList,Text } from 'react-native';
+import { FlatList} from 'react-native';
 import {  
     Wrapper, 
-    Header, 
-    BalanceContainer,
     Container, 
-    Balance, 
     GridFlex, 
-    BalanceName,   
     Card,
     CardHeader,
     Avatar,
@@ -26,11 +22,10 @@ import Button from '../../components/button/index'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ModalizeDefault from "../../components/ModalizeDefault/index";
 import rotas from "../../routes/Produto/routes";
+import HeaderTopo from '../../components/header';
 
 
-import { Ionicons, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'; 
-
-import img from '../../images/logo.png'
+import {  MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 
 export default function Home({navigation}) {
@@ -42,16 +37,20 @@ export default function Home({navigation}) {
     const modalizeRef = useRef(null); 
     
     useEffect(() => {        
+        API()
+    }, [])  
+
+    function API (){
         rotas.obterTodos().then((response) =>{
             setProdutos(response.data);
-            mostrarNome()
-            
+            mostrarNome()           
         }).catch(error => {console.log(error)})
-    }, [])  
+    }
     
-    async function handleLogout(){
-        await AsyncStorage.multiRemove(["token","nome"])
-        navigation.navigate('Login');        
+
+    function handleDetails(produtos){
+      
+        navigation.navigate('Details',produtos);        
     }
 
     async function mostrarNome(){
@@ -62,7 +61,6 @@ export default function Home({navigation}) {
     const handleEdit = (item) => {
         modalizeRef.current?.open();
         setJojo(item)
-        console.log(jojo)
         
     }
 
@@ -80,23 +78,7 @@ export default function Home({navigation}) {
     return (
         <>
         <Wrapper>       
-               <Header >
-                <TouchableOpacity style={{ flex:1}}>
-                    <Ionicons style={{marginLeft:10}} name="md-person-circle-sharp" size={30} color="#c3b087" />
-                    <BalanceName >{nome}</BalanceName>
-                </TouchableOpacity> 
-                
-               
-                <BalanceContainer  style={{ flex:1, alignItems:"center"}}>
-                    <TouchableOpacity>
-                    <Balance source={img}/>
-                    </TouchableOpacity>
-                </BalanceContainer>
-               
-                <TouchableOpacity onPress={handleLogout} style={{ flex:1, alignItems:"flex-end" }}>
-                    <MaterialIcons name="logout" size={30} color="#c3b087" />
-                </TouchableOpacity> 
-                </Header>
+               <HeaderTopo navigation={navigation} nome={nome}/>
                 <Container>
                 <Topo />
                 </Container>
@@ -107,7 +89,7 @@ export default function Home({navigation}) {
                     keyExtractor={item => item.id.toString()}
                     renderItem={({ item }) =>
                     
-                        <ContainerBanner>
+                        <ContainerBanner onPress={()=>handleDetails(item)}>
                           <Card>
                             <CardHeader>
                               <Avatar source={{uri: item.linkImagem}} />
@@ -136,9 +118,9 @@ export default function Home({navigation}) {
 
                 
             
-            <Button />
+            <Button atualizarHome={API} />
         </Wrapper>     
-        <ModalizeDefault modalizeRef={modalizeRef} jojo={jojo}/>
+        <ModalizeDefault modalizeRef={modalizeRef} jojo={jojo} atualizarHome={API}/>
       </>
     )
 }
